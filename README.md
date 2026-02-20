@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="src/main/resources/static/images/hispajug-logo.png" alt="HispaJUG Logo" width="200"/>
+</p>
+
 # HispaJUG Website
 
 > El código nos une, el idioma nos conecta
