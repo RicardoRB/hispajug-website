@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es" th:replace="~{layout :: layout(~{::title}, ~{::content})}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>HispaJUG | El epicentro de la JVM en Español</title>
+</head>
+<body>
+
+<th:block th:fragment="content">
+    <!-- Hero Section -->
+    <div th:replace="~{fragments/hero :: hero}"></div>
+
+    <!-- Eventos Section -->
+    <div th:replace="~{fragments/eventos :: eventos}"></div>
+
+    <!-- Comunidades Section -->
+    <div th:replace="~{fragments/comunidades :: comunidades}"></div>
+</th:block>
+
+</body>
+</html>

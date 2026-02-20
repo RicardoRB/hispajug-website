@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<section class="py-24 bg-white" id="comunidades" th:fragment="comunidades">
+    <div class="max-w-7xl mx-auto px-6">
+        <section class="search-gradient py-16 border-b border-slate-200">
+            <div class="max-w-4xl mx-auto px-6 text-center">
+                <h1 class="text-4xl font-extrabold mb-4 tracking-tight">Comunidades JUG Hispanas</h1>
+                <p class="text-slate-600 mb-10">Explora los grupos de usuarios por país y únete a la conversación.</p>
+
+                <div class="flex flex-wrap justify-center gap-3 mb-8">
+                    <a href="/#comunidades"
+                       th:class="${paisFiltro == null || paisFiltro == ''} ?
+                    'px-6 py-2 rounded-full bg-red-600 text-white shadow-lg shadow-red-200 font-bold transition-all' :
+                    'px-6 py-2 rounded-full bg-white text-slate-600 border border-slate-200 hover:border-red-400 hover:text-red-600 font-medium transition-all'">
+                        Todos
+                    </a>
+
+                    <th:block th:each="p : ${listaPaises}">
+                        <a th:class="${paisFiltro == p} ?
+                        'px-6 py-2 rounded-full bg-red-600 text-white shadow-lg shadow-red-200 font-bold transition-all' :
+                        'px-6 py-2 rounded-full bg-white text-slate-600 border border-slate-200 hover:border-red-400 hover:text-red-600 font-medium transition-all'"
+                           th:href="@{/#comunidades(pais=${p})}"
+                           th:text="${p}">
+                            País
+                        </a>
+                    </th:block>
+                </div>
+
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">
+                    Mostrando <span class="text-slate-900" th:text="${jugs.size()}">0</span> comunidades
+                    <span th:if="${paisFiltro != '' && paisFiltro != null}"> en <span class="text-red-600"
+                                                                                      th:text="${paisFiltro}">País</span></span>
+                </p>
+            </div>
+        </section>
+
+        <main class="max-w-7xl mx-auto px-6 py-20">
+            <div class="text-center py-20" th:if="${jugs.empty}">
+                <div class="text-6xl mb-4">🌍</div>
+                <h3 class="text-2xl font-bold">No encontramos JUGs en ese país</h3>
+                <p class="text-slate-500 mt-2">¡Quizás tú puedas ser quien funde el primero!</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col overflow-hidden group"
+                     th:each="jug : ${jugs}">
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-6">
+                            <span class="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-xs font-bold uppercase tracking-wider"
+                                  th:text="${jug.pais}">ESPAÑA</span>
+                            <a class="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-red-50 hover:text-red-600 transition" target="_blank"
+                               th:href="${jug.webUrl}">
+                                <i class="fa-solid fa-link"></i>
+                            </a>
+                        </div>
+
+                        <h2 class="text-2xl font-bold mb-1 group-hover:text-red-600 transition" th:text="${jug.nombre}">
+                            Madrid JUG</h2>
+                        <p class="text-slate-500 text-sm mb-6 flex items-center gap-2">
+                            <i class="fa-solid fa-location-dot"></i> <span th:text="${jug.localizacion}">Madrid</span>
+                        </p>
+
+                        <div class="space-y-4">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Liderado por</p>
+                            <div class="flex flex-wrap gap-4">
+                                <div class="flex items-center gap-3 bg-slate-50 pr-4 rounded-full border border-slate-100 hover:border-red-200 transition"
+                                     th:each="leader : ${jug.lideres}">
+                                    <img class="w-8 h-8 rounded-full object-cover grayscale group-hover:grayscale-0 transition shadow-sm"
+                                         th:alt="${leader.nombre}"
+                                         th:src="${leader.fotoUrl}">
+                                    <a class="text-sm font-semibold text-slate-700 hover:text-red-600 transition flex items-center gap-1" target="_blank"
+                                       th:href="${leader.linkedinUrl}">
+                                        <span th:text="${leader.nombre}">Nombre</span>
+                                        <i class="fa-brands fa-linkedin text-[10px]"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <section class="bg-slate-900 py-24 relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-20 opacity-10">
+                <i class="fa-brands fa-github text-[200px] text-white"></i>
+            </div>
+
+            <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+                <div class="inline-flex items-center gap-2 bg-white/10 text-white px-4 py-2 rounded-full text-sm font-medium mb-8">
+                    <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                    Proyecto Open Source
+                </div>
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">¿Tu comunidad local no está en la lista?</h2>
+                <p class="text-slate-400 text-lg mb-10 leading-relaxed">
+                    HispaJUG es un proyecto de la comunidad para la comunidad. Si conoces un JUG que debería estar aquí
+                    o eres líder de uno, ayúdanos a mantener este directorio actualizado.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a class="flex items-center justify-center gap-3 bg-white text-slate-900 px-8 py-4 rounded-2xl font-bold hover:bg-slate-100 transition shadow-xl"
+                       href="https://github.com/hispajug/directorio/issues">
+                        <i class="fa-solid fa-circle-exclamation"></i> Abrir una Issue
+                    </a>
+                    <a class="flex items-center justify-center gap-3 bg-slate-800 text-white px-8 py-4 rounded-2xl font-bold hover:bg-slate-700 transition border border-slate-700"
+                       href="https://github.com/hispajug/directorio/pulls">
+                        <i class="fa-solid fa-code-pull-request"></i> Hacer Pull Request
+                    </a>
+                </div>
+
+                <p class="mt-12 text-slate-500 text-sm">
+                    ¿No sabes cómo colaborar en GitHub? <a class="text-red-400 hover:underline font-semibold" href="#">Mira
+                    nuestra guía aquí.</a>
+                </p>
+            </div>
+        </section>
+    </div>
+</section>
+
+</body>
+</html>

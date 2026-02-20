@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<section class="py-16 max-w-7xl mx-auto px-4" id="eventos" th:fragment="eventos">
+    <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-900">Charlas Online Mensuales</h2>
+        <p class="mt-4 text-lg text-gray-600">Cada mes nos reunimos con expertos del ecosistema JVM para compartir
+            conocimiento.</p>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col md:flex-row border border-gray-200"
+         th:if="${proximoEvento != null}">
+        <div class="md:w-1/3 bg-red-600 flex items-center justify-center p-8 text-white text-center">
+            <div>
+                <p class="text-sm uppercase tracking-widest mb-2 font-semibold">Próximo Evento</p>
+                <p class="text-5xl font-black" th:text="${#temporals.day(proximoEvento.fecha)}">25</p>
+                <p class="text-xl uppercase" th:text="${#temporals.monthNameShort(proximoEvento.fecha)}">Marzo</p>
+            </div>
+        </div>
+        <div class="p-8 md:w-2/3">
+            <span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded uppercase"
+                  th:text="${proximoEvento.tipo}">En Vivo vía YouTube</span>
+            <h3 class="text-2xl font-bold mt-2" th:text="${proximoEvento.titulo}">Novedades en el GC de Java 21+</h3>
+            <p class="text-gray-600 mt-4" th:text="${proximoEvento.descripcion}">Una inmersión profunda en los
+                recolectores de basura modernos y cómo optimizar nuestras aplicaciones en producción.</p>
+            <div class="mt-6">
+                <a class="text-red-600 font-bold hover:underline" th:href="${proximoEvento.urlRegistro}">Registrarse
+                    gratis →</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center py-20" th:if="${proximoEvento == null}">
+        <div class="text-6xl mb-4">📅</div>
+        <h3 class="text-2xl font-bold">Próximamente nuevos eventos</h3>
+        <p class="text-slate-500 mt-2">¡Mantente atento a nuestro canal de Slack para las próximas charlas!</p>
+    </div>
+</section>
+
+</body>
+</html>
